@@ -46,10 +46,10 @@ import { ReservasService, Reserva } from '@core/services/reservas.service';
 
           <!-- Reservas Grid -->
           <div class="grid grid-cols-1 gap-6 animate-fade-in" style="animation-delay: 200ms;">
-            <div *ngFor="let reserva of reservas; let i = index"
-              class="card group hover:shadow-xl animate-scale-in"
-              [style.animation-delay]="(i * 50) + 'ms'"
-              *ngIf="filterReservas(reserva)">
+            <ng-container *ngFor="let reserva of reservas; let i = index">
+              <div *ngIf="filterReservas(reserva)"
+                class="card group hover:shadow-xl animate-scale-in"
+                [style.animation-delay]="(i * 50) + 'ms'">
               
               <!-- Status Badge -->
               <div class="flex items-center justify-between mb-4">
@@ -89,7 +89,8 @@ import { ReservasService, Reserva } from '@core/services/reservas.service';
                 </button>
               </div>
             </div>
-          </div>
+          </ng-container>
+        </div>
 
           <!-- Empty State -->
           <div *ngIf="reservas.length === 0" class="text-center py-16 animate-slide-up">

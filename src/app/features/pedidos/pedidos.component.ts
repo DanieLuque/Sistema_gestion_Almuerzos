@@ -48,10 +48,10 @@ import { RouterLink } from '@angular/router';
 
       <!-- Pedidos List -->
       <div class="space-y-4 animate-fade-in" style="animation-delay: 200ms;">
-        <div *ngFor="let pedido of pedidos; let i = index"
-          class="card group hover:shadow-lg animate-slide-up"
-          [style.animation-delay]="(i * 50) + 'ms'"
-          *ngIf="filterPedidos(pedido)">
+        <ng-container *ngFor="let pedido of pedidos; let i = index">
+          <div *ngIf="filterPedidos(pedido)"
+            class="card group hover:shadow-lg animate-slide-up"
+            [style.animation-delay]="(i * 50) + 'ms'">
           
           <div class="flex flex-col md:flex-row gap-6">
             <!-- Left Info -->
@@ -110,8 +110,9 @@ import { RouterLink } from '@angular/router';
                 </button>
               </div>
             </div>
+            </div>
           </div>
-        </div>
+        </ng-container>
       </div>
 
       <!-- Empty State -->
@@ -170,30 +171,4 @@ export class PedidosComponent implements OnInit {
   cancelPedido(id: number): void {
     this.pedidosService.cancelPedido(id);
   }
-}
-  `,
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('400ms ease-out', style({ opacity: 1 }))
-      ])
-    ]),
-    trigger('slideUp', [
-      transition(':enter', [
-        style({ transform: 'translateY(20px)', opacity: 0 }),
-        animate('600ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
-      ])
-    ])
-  ]
-})
-export class PedidosComponent {
-  filters = [
-    { label: 'Todos', active: true },
-    { label: 'En Proceso', active: false },
-    { label: 'Entregados', active: false },
-    { label: 'Cancelados', active: false }
-  ];
-
-  pedidos: any[] = [];
 }
