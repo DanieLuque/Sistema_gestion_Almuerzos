@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "sistema-gestion-almuerzos:build:production"
+              "buildTarget": "sistema-gestion-almuerzos:build:production"
             },
             "development": {
-              "browserTarget": "sistema-gestion-almuerzos:build:development"
+              "buildTarget": "sistema-gestion-almuerzos:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -100,5 +100,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "54812819-d5b8-4a64-85bb-44190ac03c62"
   }
 }

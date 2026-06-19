@@ -38,7 +38,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 
           <!-- Price & Rating -->
           <div class="flex items-center justify-between mb-4">
-            <span class="text-2xl font-bold text-blue-600">${{ item.price }}</span>
+            <span class="text-2xl font-bold text-blue-600">\${{ item.price }}</span>
             <div class="flex items-center gap-1">
               <i *ngFor="let star of [1,2,3,4,5]" 
                 class="fas fa-star text-yellow-400"
