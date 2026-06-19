@@ -1,16 +1,6 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { FirebaseOptions } from '@angular/fire/app';
 
-// Your web app's Firebase configuration
-
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+export const firebaseConfig: FirebaseOptions = {
   apiKey: "AIzaSyDJVi5qyh79FGzhZgDOVbEuoUZu9TRiaso",
   authDomain: "sistemagestionalmuerzos.firebaseapp.com",
   projectId: "sistemagestionalmuerzos",
@@ -19,7 +9,3 @@ const firebaseConfig = {
   appId: "1:766529873514:web:a0afcc544dcfe166cb0c13",
   measurementId: "G-902G9KD4EV"
 };
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
