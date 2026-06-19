@@ -1,0 +1,61 @@
+<footer @slideUp class="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-r from-slate-900 to-slate-800 text-white border-t border-slate-700">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-6">
+      <!-- About Section -->
+      <div class="animate-slide-in-left" style="animation-delay: 0.1s;">
+        <h3 class="text-lg font-bold mb-4 text-gradient">Almuerzos</h3>
+        <p class="text-slate-400 text-sm">Sistema de gestión inteligente de almuerzos para empresas y organizaciones.</p>
+      </div>
+
+      <!-- Links Section -->
+      <div class="animate-slide-in-left" style="animation-delay: 0.2s;">
+        <h4 class="text-sm font-semibold mb-4 uppercase tracking-wider text-slate-200">Enlaces</h4>
+        <ul class="space-y-2">
+          <li *ngFor="let link of links">
+            <a [href]="link.url" class="text-slate-400 hover:text-blue-400 text-sm transition-colors duration-300">
+              {{ link.label }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="animate-slide-in-left" style="animation-delay: 0.3s;">
+        <h4 class="text-sm font-semibold mb-4 uppercase tracking-wider text-slate-200">Contacto</h4>
+        <ul class="space-y-2 text-slate-400 text-sm">
+          <li>Email: info&#64;almuerzos.com</li>
+          <li>Teléfono: +34 123 456 789</li>
+          <li>Dirección: Madrid, España</li>
+        </ul>
+      </div>
+
+      <!-- Social Section -->
+      <div class="animate-slide-in-left" style="animation-delay: 0.4s;">
+        <h4 class="text-sm font-semibold mb-4 uppercase tracking-wider text-slate-200">Síguenos</h4>
+        <div class="flex gap-4">
+          <a *ngFor="let social of social"
+            [href]="social.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-2 bg-slate-700 hover:bg-blue-600 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-y-1">
+            <i [class]="social.icon + ' text-lg'"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-slate-700 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-slate-400 text-sm">
+          &copy; {{ currentYear }} Sistema Gestión de Almuerzos. Todos los derechos reservados.
+        </p>
+        <div class="flex gap-6">
+          <a href="#" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">Privacidad</a>
+          <a href="#" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">Términos</a>
+          <a href="#" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
