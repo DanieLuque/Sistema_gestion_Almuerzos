@@ -1,0 +1,139 @@
+<nav @slideDown class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo Section -->
+      <div class="flex items-center gap-3 group cursor-pointer" @fadeIn>
+        <div class="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg group-hover:scale-110 transition-transform duration-300">
+          <i class="fas fa-bowl-food text-white text-xl"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-gradient">Almuerzos</h1>
+          <p class="text-xs text-gray-500">Gestión Inteligente</p>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="hidden lg:flex flex-1 mx-8">
+        <app-search-bar></app-search-bar>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-2">
+        <div *ngFor="let item of navItems" class="relative group">
+          <a 
+            [routerLink]="item.path"
+            routerLinkActive="active"
+            #rla="routerLinkActive"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-700 hover:text-blue-600 transition-all duration-300 relative"
+            [class.text-blue-600]="rla.isActive">
+            <i [class]="item.icon + ' text-lg'"></i>
+            <span class="font-medium">{{ item.label }}</span>
+            
+            <!-- Underline Animation -->
+            <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-full opacity-0 group-hover:opacity-100 transition-all duration-300 w-0 group-hover:w-full"></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Section -->
+      <div class="hidden md:flex items-center gap-4" @fadeIn>
+        <!-- Notifications -->
+        <button class="p-2 hover:bg-gray-100 rounded-full transition-all duration-300 hover:scale-110 relative">
+          <i class="fas fa-bell text-gray-600 text-xl"></i>
+          <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse"></span>
+        </button>
+
+        <!-- User Dropdown -->
+        <div class="relative">
+          <button 
+            (click)="toggleUserDropdown()"
+            class="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-full transition-all duration-300">
+            <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+              <i class="fas fa-user text-white text-sm"></i>
+            </div>
+            <i class="fas fa-chevron-down text-gray-600 text-xs"></i>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div 
+            *ngIf="isUserDropdownOpen"
+            class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 animate-scale-in"
+            style="animation-duration: 200ms;">
+            <!-- User Info -->
+            <div class="p-4 border-b border-gray-200">
+              <p class="font-semibold text-gray-900">{{ userName }}</p>
+              <p class="text-sm text-gray-600">usuario&#64;email.com</p>
+            </div>
+
+            <!-- Menu Items -->
+            <div class="py-2">
+              <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                <i class="fas fa-user-circle w-4"></i>
+                <span>Mi Perfil</span>
+              </a>
+              <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                <i class="fas fa-cog w-4"></i>
+                <span>Configuración</span>
+              </a>
+              <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                <i class="fas fa-history w-4"></i>
+                <span>Historial</span>
+              </a>
+              <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                <i class="fas fa-headset w-4"></i>
+                <span>Soporte</span>
+              </a>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-gray-200 py-2">
+              <button 
+                (click)="logout()"
+                class="w-full flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 transition-colors">
+                <i class="fas fa-sign-out-alt w-4"></i>
+                <span>Cerrar Sesión</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button 
+        (click)="toggleMenu()"
+        class="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-all duration-300">
+        <i class="fas fa-bars text-2xl text-gray-700"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div 
+      *ngIf="isOpen"
+      class="md:hidden pb-4 space-y-2 animate-slide-down">
+      <div *ngFor="let item of navItems" 
+        class="block px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors duration-300"
+        (click)="closeMenu()">
+        <a 
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          #rla="routerLinkActive"
+          class="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors"
+          [class.text-blue-600]="rla.isActive"
+          [class.font-bold]="rla.isActive">
+          <i [class]="item.icon + ' text-lg'"></i>
+          <span>{{ item.label }}</span>
+        </a>
+      </div>
+
+      <!-- Mobile Auth Buttons -->
+      <div class="flex gap-2 px-4 pt-4 border-t border-gray-200">
+        <a routerLink="/auth/login" class="flex-1 btn btn-outline py-2 text-sm text-center">
+          Iniciar Sesión
+        </a>
+        <a routerLink="/auth/register" class="flex-1 btn btn-primary py-2 text-sm text-center">
+          Registrarse
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
