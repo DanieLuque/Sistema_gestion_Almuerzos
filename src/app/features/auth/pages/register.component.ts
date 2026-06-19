@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { PasswordStrengthComponent } from '@shared/components/password-strength/password-strength.component';
+import { TermsModalComponent } from '@shared/components/terms-modal/terms-modal.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, PasswordStrengthComponent, TermsModalComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
   animations: [
@@ -32,6 +34,9 @@ export class RegisterComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
   successMessage = '';
+  showTermsModal = false;
+
+  @ViewChild(PasswordStrengthComponent) passwordStrength!: PasswordStrengthComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -103,6 +108,19 @@ export class RegisterComponent implements OnInit {
 
   get confirmPassword() {
     return this.registerForm.get('confirmPassword');
+  }
+
+  openTermsModal() {
+    this.showTermsModal = true;
+  }
+
+  acceptTerms() {
+    this.registerForm.patchValue({ terms: true });
+    this.showTermsModal = false;
+  }
+
+  closeTermsModal() {
+    this.showTermsModal = false;
   }
 
   get terms() {

@@ -80,9 +80,9 @@
               <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
             </button>
           </div>
-          <div *ngIf="password?.touched && password?.invalid" class="text-red-500 text-xs mt-1">
-            Mínimo 6 caracteres
-          </div>
+          
+          <!-- Password Strength Indicator -->
+          <app-password-strength [password]="password?.value || ''"></app-password-strength>
         </div>
 
         <!-- Confirm Password -->
@@ -115,12 +115,18 @@
             class="w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer">
           <span class="text-gray-600 text-sm group-hover:text-gray-900 transition-colors">
             Acepto los
-            <a href="#" class="text-green-600 hover:underline font-medium">términos y condiciones</a>
+            <button type="button" (click)="openTermsModal()" class="text-green-600 hover:underline font-medium">términos y condiciones</button>
           </span>
         </label>
         <div *ngIf="terms?.touched && terms?.invalid" class="text-red-500 text-xs">
           Debes aceptar los términos
         </div>
+
+        <!-- Terms Modal -->
+        <app-terms-modal 
+          [isOpen]="showTermsModal"
+          (onAccept)="acceptTerms()"
+          (onClose)="closeTermsModal()"></app-terms-modal>
 
         <!-- Submit -->
         <button
