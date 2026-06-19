@@ -168,7 +168,7 @@ export class PedidosComponent implements OnInit {
     return true;
   }
 
-  cancelPedido(id: number): void {
+  cancelPedido(id: string): void {
     this.pedidosService.cancelPedido(id);
   }
 }

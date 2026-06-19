@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { MenuService, MenuItem, CartItem } from '@core/services/menu.service';
+import { MenuService } from '@core/services/menu.service';
+import { MenuItem, CartItem } from '@database/models';
 import { Router } from '@angular/router';
 
 @Component({
@@ -189,7 +190,7 @@ export class MenuComponent implements OnInit {
     this.menuService.addToCart(item);
   }
 
-  updateQuantity(itemId: number, quantity: number): void {
+  updateQuantity(itemId: string, quantity: number): void {
     this.menuService.updateQuantity(itemId, quantity);
   }
 

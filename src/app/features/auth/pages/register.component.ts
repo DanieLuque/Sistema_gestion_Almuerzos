@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { PasswordStrengthComponent } from '@shared/components/password-strength/password-strength.component';
 import { TermsModalComponent } from '@shared/components/terms-modal/terms-modal.component';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -40,7 +41,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -79,16 +81,26 @@ export class RegisterComponent implements OnInit {
       this.isLoading = true;
       this.errorMessage = '';
       this.successMessage = '';
-      
-      // Simulación de registro
-      setTimeout(() => {
-        this.successMessage = '¡Registro exitoso! Redirigiendo al login...';
-        this.isLoading = false;
-        
-        setTimeout(() => {
-          this.router.navigate(['/auth/login']);
-        }, 1500);
-      }, 1500);
+
+      const fullName = this.registerForm.value.fullName;
+      const email = this.registerForm.value.email;
+      const password = this.registerForm.value.password;
+
+      this.authService.register(fullName, email, password, 'cliente').subscribe({
+        next: (user) => {
+          this.successMessage = '¡Registro exitoso! Redirigiendo al dashboard...';
+          this.isLoading = false;
+          
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 1500);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message || 'Error en el registro. Intenta nuevamente.';
+          console.error('Error de registro:', error);
+        }
+      });
     } else {
       this.errorMessage = 'Por favor completa todos los campos correctamente.';
     }

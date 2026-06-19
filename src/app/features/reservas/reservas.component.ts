@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { ReservasService, Reserva } from '@core/services/reservas.service';
+import { ReservasService } from '@core/services/reservas.service';
+import { Reserva } from '@database/models';
 
 @Component({
   selector: 'app-reservas',
@@ -247,7 +248,7 @@ export class ReservasComponent implements OnInit {
     // Implementar edición
   }
 
-  cancelReserva(id: number): void {
+  cancelReserva(id: string): void {
     this.reservasService.cancelReserva(id);
   }
 }

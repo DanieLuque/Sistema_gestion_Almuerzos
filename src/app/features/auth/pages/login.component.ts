@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -51,13 +53,22 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.isLoading = true;
       this.errorMessage = '';
-      
-      // Simulación de login
-      setTimeout(() => {
-        // localStorage.setItem('token', 'fake-token-12345');
-        this.isLoading = false;
-        this.router.navigate(['/dashboard']);
-      }, 1500);
+
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+
+      this.authService.login(email, password).subscribe({
+        next: (user) => {
+          this.isLoading = false;
+          console.log('Login exitoso:', user);
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.errorMessage = error.message || 'Error en el login. Verifica tus credenciales.';
+          console.error('Error de login:', error);
+        }
+      });
     } else {
       this.errorMessage = 'Por favor completa todos los campos correctamente.';
     }
