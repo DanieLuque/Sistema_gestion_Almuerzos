@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -24,16 +24,11 @@ import { trigger, transition, style, animate } from '@angular/animations';
     ])
   ]
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   isOpen = false;
-
-  toggleMenu() {
-    this.isOpen = !this.isOpen;
-  }
-
-  closeMenu() {
-    this.isOpen = false;
-  }
+  isUserDropdownOpen = false;
+  isLoggedIn = false;
+  userName = 'Juan Pérez';
 
   navItems = [
     { label: 'Dashboard', path: '/dashboard', icon: 'fas fa-chart-line' },
@@ -41,4 +36,27 @@ export class NavbarComponent {
     { label: 'Reservas', path: '/reservas', icon: 'fas fa-calendar' },
     { label: 'Pedidos', path: '/pedidos', icon: 'fas fa-shopping-cart' },
   ];
+
+  ngOnInit() {
+    // Simular que el usuario está logueado
+    this.isLoggedIn = true;
+  }
+
+  toggleMenu() {
+    this.isOpen = !this.isOpen;
+  }
+
+  toggleUserDropdown() {
+    this.isUserDropdownOpen = !this.isUserDropdownOpen;
+  }
+
+  closeMenu() {
+    this.isOpen = false;
+  }
+
+  logout() {
+    // Lógica de logout
+    this.isLoggedIn = false;
+    this.isUserDropdownOpen = false;
+  }
 }

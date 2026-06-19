@@ -32,11 +32,64 @@
 
       <!-- Right Section -->
       <div class="hidden md:flex items-center gap-4" @fadeIn>
-        <button class="p-2 hover:bg-gray-100 rounded-full transition-all duration-300 hover:scale-110">
+        <!-- Notifications -->
+        <button class="p-2 hover:bg-gray-100 rounded-full transition-all duration-300 hover:scale-110 relative">
           <i class="fas fa-bell text-gray-600 text-xl"></i>
+          <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse"></span>
         </button>
-        <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full cursor-pointer hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-          <i class="fas fa-user text-white"></i>
+
+        <!-- User Dropdown -->
+        <div class="relative">
+          <button 
+            (click)="toggleUserDropdown()"
+            class="flex items-center gap-2 p-2 hover:bg-gray-100 rounded-full transition-all duration-300">
+            <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+              <i class="fas fa-user text-white text-sm"></i>
+            </div>
+            <i class="fas fa-chevron-down text-gray-600 text-xs"></i>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div 
+            *ngIf="isUserDropdownOpen"
+            class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 animate-scale-in"
+            style="animation-duration: 200ms;">
+            <!-- User Info -->
+            <div class="p-4 border-b border-gray-200">
+              <p class="font-semibold text-gray-900">{{ userName }}</p>
+              <p class="text-sm text-gray-600">usuario@email.com</p>
+            </div>
+
+            <!-- Menu Items -->
+            <div class="py-2">
+              <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                <i class="fas fa-user-circle w-4"></i>
+                <span>Mi Perfil</span>
+              </a>
+              <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                <i class="fas fa-cog w-4"></i>
+                <span>Configuración</span>
+              </a>
+              <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                <i class="fas fa-history w-4"></i>
+                <span>Historial</span>
+              </a>
+              <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                <i class="fas fa-headset w-4"></i>
+                <span>Soporte</span>
+              </a>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-gray-200 py-2">
+              <button 
+                (click)="logout()"
+                class="w-full flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 transition-colors">
+                <i class="fas fa-sign-out-alt w-4"></i>
+                <span>Cerrar Sesión</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -64,6 +117,16 @@
           [class.font-bold]="rla.isActive">
           <i [class]="item.icon + ' text-lg'"></i>
           <span>{{ item.label }}</span>
+        </a>
+      </div>
+
+      <!-- Mobile Auth Buttons -->
+      <div class="flex gap-2 px-4 pt-4 border-t border-gray-200">
+        <a routerLink="/auth/login" class="flex-1 btn btn-outline py-2 text-sm text-center">
+          Iniciar Sesión
+        </a>
+        <a routerLink="/auth/register" class="flex-1 btn btn-primary py-2 text-sm text-center">
+          Registrarse
         </a>
       </div>
     </div>

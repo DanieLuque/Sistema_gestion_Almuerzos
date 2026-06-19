@@ -10,6 +10,21 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.95) translateY(-10px);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+  }
 }
 
 .router-link-active {
