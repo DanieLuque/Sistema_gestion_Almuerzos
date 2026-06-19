@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { PedidosService } from '@core/services/pedidos.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-pedidos',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   template: `
     <div @fadeIn class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="mb-8 animate-slide-up">
@@ -17,17 +19,39 @@ import { trigger, transition, style, animate } from '@angular/animations';
       <!-- Filter Buttons -->
       <div class="mb-8 flex flex-wrap gap-3 animate-slide-up" style="animation-delay: 100ms;">
         <button *ngFor="let filter of filters"
+          (click)="activeFilter = filter"
           class="px-4 py-2 rounded-full transition-all duration-300 font-medium"
-          [class]="filter.active ? 'bg-orange-600 text-white' : 'bg-white text-gray-700 border border-gray-200 hover:border-orange-600'">
-          {{ filter.label }}
+          [class]="activeFilter === filter ? 'bg-orange-600 text-white' : 'bg-white text-gray-700 border border-gray-200 hover:border-orange-600'">
+          {{ filter }}
         </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="card text-center">
+          <p class="text-2xl font-bold text-orange-600">{{ stats.total }}</p>
+          <p class="text-sm text-gray-600">Total Pedidos</p>
+        </div>
+        <div class="card text-center">
+          <p class="text-2xl font-bold text-blue-600">{{ stats.procesando }}</p>
+          <p class="text-sm text-gray-600">En Proceso</p>
+        </div>
+        <div class="card text-center">
+          <p class="text-2xl font-bold text-green-600">{{ stats.entregados }}</p>
+          <p class="text-sm text-gray-600">Entregados</p>
+        </div>
+        <div class="card text-center">
+          <p class="text-2xl font-bold text-purple-600">\${{ stats.totalGastado }}</p>
+          <p class="text-sm text-gray-600">Total Gastado</p>
+        </div>
       </div>
 
       <!-- Pedidos List -->
       <div class="space-y-4 animate-fade-in" style="animation-delay: 200ms;">
         <div *ngFor="let pedido of pedidos; let i = index"
           class="card group hover:shadow-lg animate-slide-up"
-          [style.animation-delay]="(i * 100) + 'ms'">
+          [style.animation-delay]="(i * 50) + 'ms'"
+          *ngIf="filterPedidos(pedido)">
           
           <div class="flex flex-col md:flex-row gap-6">
             <!-- Left Info -->
@@ -48,7 +72,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
                 <ul class="space-y-1 text-sm text-gray-600">
                   <li *ngFor="let item of pedido.items" class="flex justify-between">
                     <span>{{ item.quantity }}x {{ item.name }}</span>
-                    <span>\${{ item.price }}</span>
+                    <span>\${{ (item.price * item.quantity).toFixed(2) }}</span>
                   </li>
                 </ul>
               </div>
@@ -79,8 +103,10 @@ import { trigger, transition, style, animate } from '@angular/animations';
                 <button class="flex-1 btn btn-secondary py-2 text-sm">
                   <i class="fas fa-eye"></i>
                 </button>
-                <button class="flex-1 btn btn-outline py-2 text-sm">
-                  <i class="fas fa-download"></i>
+                <button *ngIf="pedido.status === 'primary'" 
+                  (click)="cancelPedido(pedido.id)"
+                  class="flex-1 btn btn-outline py-2 text-sm">
+                  <i class="fas fa-times"></i>
                 </button>
               </div>
             </div>
@@ -98,6 +124,53 @@ import { trigger, transition, style, animate } from '@angular/animations';
         <a routerLink="/menu" class="btn btn-primary">Hacer Pedido</a>
       </div>
     </div>
+  `,
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('400ms ease-out', style({ opacity: 1 }))
+      ])
+    ]),
+    trigger('slideUp', [
+      transition(':enter', [
+        style({ transform: 'translateY(20px)', opacity: 0 }),
+        animate('600ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
+      ])
+    ])
+  ]
+})
+export class PedidosComponent implements OnInit {
+  filters = ['Todos', 'En Proceso', 'Entregados', 'Cancelados'];
+  activeFilter = 'Todos';
+  
+  pedidos: any[] = [];
+  stats: any = {};
+
+  constructor(private pedidosService: PedidosService) {}
+
+  ngOnInit(): void {
+    this.pedidosService.pedidos$.subscribe(pedidos => {
+      this.pedidos = pedidos;
+    });
+
+    this.pedidosService.stats$.subscribe(stats => {
+      this.stats = stats;
+    });
+  }
+
+  filterPedidos(pedido: any): boolean {
+    if (this.activeFilter === 'Todos') return true;
+    if (this.activeFilter === 'En Proceso') return pedido.status === 'primary';
+    if (this.activeFilter === 'Entregados') return pedido.status === 'success';
+    if (this.activeFilter === 'Cancelados') return pedido.status === 'danger';
+    return true;
+  }
+
+  cancelPedido(id: number): void {
+    this.pedidosService.cancelPedido(id);
+  }
+}
   `,
   animations: [
     trigger('fadeIn', [
