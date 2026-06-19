@@ -31,8 +31,7 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent),
-    canActivate: [authGuard]
+    loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
   },
   {
     path: 'menu',
@@ -40,8 +39,7 @@ export const routes: Routes = [
   },
   {
     path: 'reservas',
-    loadComponent: () => import('./features/reservas/reservas.component').then(m => m.ReservasComponent),
-    canActivate: [authGuard]
+    loadComponent: () => import('./features/reservas/reservas.component').then(m => m.ReservasComponent)
   },
   {
     path: 'pedidos',
