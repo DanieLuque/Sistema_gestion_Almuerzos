@@ -87,9 +87,9 @@ import { trigger, transition, style, animate } from '@angular/animations';
 })
 export class DashboardComponent {
   stats = [
-    { label: 'Almuerzos Pendientes', value: '12', icon: 'fas fa-utensils', bgColor: '#fef3c7', color: '#f59e0b', trend: 8 },
-    { label: 'Reservas Confirmadas', value: '28', icon: 'fas fa-check-circle', bgColor: '#d1fae5', color: '#10b981', trend: 12 },
-    { label: 'Usuarios Activos', value: '156', icon: 'fas fa-users', bgColor: '#dbeafe', color: '#3b82f6', trend: 5 },
-    { label: 'Ingresos del Mes', value: '$2.5K', icon: 'fas fa-dollar-sign', bgColor: '#fce7f3', color: '#ec4899', trend: 15 }
+    { label: 'Almuerzos Pendientes', value: '0', icon: 'fas fa-utensils', bgColor: '#fef3c7', color: '#f59e0b', trend: 0 },
+    { label: 'Reservas Confirmadas', value: '0', icon: 'fas fa-check-circle', bgColor: '#d1fae5', color: '#10b981', trend: 0 },
+    { label: 'Usuarios Activos', value: '0', icon: 'fas fa-users', bgColor: '#dbeafe', color: '#3b82f6', trend: 0 },
+    { label: 'Ingresos del Mes', value: '$0', icon: 'fas fa-dollar-sign', bgColor: '#fce7f3', color: '#ec4899', trend: 0 }
   ];
 }

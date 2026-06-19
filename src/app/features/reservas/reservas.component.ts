@@ -124,42 +124,5 @@ export class ReservasComponent {
     { label: 'Canceladas', active: false }
   ];
 
-  reservas = [
-    {
-      id: 1,
-      menu: 'Pollo a la Brasa',
-      description: 'Pollo tierno con papas y ensalada fresca',
-      date: '2026-06-25',
-      time: '12:30 PM',
-      pessoas: 2,
-      location: 'Oficina - Piso 3',
-      price: 15.99,
-      status: 'primary',
-      statusLabel: 'Confirmada'
-    },
-    {
-      id: 2,
-      menu: 'Ensalada Caesar',
-      description: 'Lechuga fresca con pollo y queso parmesano',
-      date: '2026-06-26',
-      time: '1:00 PM',
-      pessoas: 1,
-      location: 'Oficina - Comedor',
-      price: 12.99,
-      status: 'primary',
-      statusLabel: 'Confirmada'
-    },
-    {
-      id: 3,
-      menu: 'Filete de Salmón',
-      description: 'Salmón fresco al horno con limón',
-      date: '2026-06-27',
-      time: '12:00 PM',
-      pessoas: 3,
-      location: 'Oficina - Piso 2',
-      price: 18.99,
-      status: 'primary',
-      statusLabel: 'Pendiente'
-    }
-  ];
+  reservas: any[] = [];
 }

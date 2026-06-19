@@ -85,54 +85,5 @@ export class MenuComponent {
     { label: 'Bajo en Calorías', active: false }
   ];
 
-  menuItems = [
-    {
-      id: 1,
-      name: 'Pechuga de Pollo Grillada',
-      description: 'Pechuga tierna acompañada de verduras frescas y salsa casera',
-      price: 8.99,
-      rating: 5,
-      icon: 'fas fa-drumstick-bite'
-    },
-    {
-      id: 2,
-      name: 'Ensalada César Premium',
-      description: 'Lechuga fresca con pollo grillado, queso parmesano y croutons',
-      price: 7.99,
-      rating: 4,
-      icon: 'fas fa-leaf'
-    },
-    {
-      id: 3,
-      name: 'Filete de Salmón',
-      description: 'Salmón fresco al horno con limón y hierbas aromáticas',
-      price: 12.99,
-      rating: 5,
-      icon: 'fas fa-fish'
-    },
-    {
-      id: 4,
-      name: 'Pasta Alfredo',
-      description: 'Pasta fresca con salsa Alfredo cremosa y jamón serrano',
-      price: 8.49,
-      rating: 4,
-      icon: 'fas fa-bowl-food'
-    },
-    {
-      id: 5,
-      name: 'Hamburguesa Artesanal',
-      description: 'Carne de res con queso fundido, tomate y lechuga',
-      price: 9.99,
-      rating: 4,
-      icon: 'fas fa-burger'
-    },
-    {
-      id: 6,
-      name: 'Tacos de Carnitas',
-      description: 'Tacos tradicionales con carne lenta, cebolla y cilantro',
-      price: 7.49,
-      rating: 5,
-      icon: 'fas fa-taco'
-    }
-  ];
+  menuItems: any[] = [];
 }

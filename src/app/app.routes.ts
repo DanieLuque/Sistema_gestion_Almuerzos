@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard, adminGuard } from './auth/guards/auth.guards';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -47,11 +47,6 @@ export const routes: Routes = [
     path: 'pedidos',
     loadComponent: () => import('./features/pedidos/pedidos.component').then(m => m.PedidosComponent),
     canActivate: [authGuard]
-  },
-  {
-    path: 'admin',
-    loadComponent: () => import('./features/admin/admin.component').then(m => m.AdminComponent),
-    canActivate: [adminGuard]
   },
   {
     path: '**',

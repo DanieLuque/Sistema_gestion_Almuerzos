@@ -122,46 +122,5 @@ export class PedidosComponent {
     { label: 'Cancelados', active: false }
   ];
 
-  pedidos = [
-    {
-      id: 1001,
-      date: '2026-06-20',
-      time: '11:45 AM',
-      status: 'primary',
-      statusLabel: 'En Proceso',
-      progress: 65,
-      items: [
-        { name: 'Pollo a la Brasa', quantity: 1, price: 8.99 },
-        { name: 'Bebida', quantity: 1, price: 2.50 }
-      ],
-      total: 11.49
-    },
-    {
-      id: 1002,
-      date: '2026-06-19',
-      time: '12:30 PM',
-      status: 'success',
-      statusLabel: 'Entregado',
-      progress: 100,
-      items: [
-        { name: 'Ensalada Caesar', quantity: 1, price: 7.99 },
-        { name: 'Agua', quantity: 1, price: 1.50 }
-      ],
-      total: 9.49
-    },
-    {
-      id: 1003,
-      date: '2026-06-18',
-      time: '1:00 PM',
-      status: 'success',
-      statusLabel: 'Entregado',
-      progress: 100,
-      items: [
-        { name: 'Salmón Grillado', quantity: 1, price: 12.99 },
-        { name: 'Ensalada', quantity: 1, price: 4.50 },
-        { name: 'Refresco', quantity: 1, price: 2.50 }
-      ],
-      total: 19.99
-    }
-  ];
+  pedidos: any[] = [];
 }
